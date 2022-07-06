@@ -1,0 +1,26 @@
+{
+  "name": "Frontend2022 PWA",
+  "short_name": "frontendPWA",
+  "icons": [
+    {
+      "src": "/PWAfrontend2022/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/PWAfrontend2022/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/PWAfrontend2022/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/PWAfrontend2022/",
+  "display": "standalone",
+  "orientation": "natural",
+  "background_color": "#EFEFEF",
+  "theme_color": "#FFEEFF"
+}
