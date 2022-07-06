@@ -5,7 +5,7 @@ const background = document.querySelector(".weather-app"); //dohvati div kontenj
 const additionalInfo = document.getElementById("additional_info"); //div kontenjer s desne strane app-a
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("../sw.js");
+  navigator.serviceWorker.register("./sw.js");
 }
 
 button.addEventListener("click", checkWeather); //dodaje event listener na dugme
