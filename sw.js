@@ -1,6 +1,6 @@
 const cacheName = "nasPrviPWA-v1";
 
-const OFFLINE_URL = "/WeatherApp_API/index.html";
+const OFFLINE_URL = "/PWAfrontend2022/offline.html";
 
 self.addEventListener("install", (e) => {
   console.log("[Service Worker] Install");
