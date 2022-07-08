@@ -8,6 +8,28 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js");
 }
 
+const buttonPretplate = document.getElementById("notifications");
+buttonPretplate.addEventListener("click", () => {
+  console.log("Kliknut sam");
+  Notification.requestPermission().then((result) => {
+    if (result === "granted") {
+      randomNotification();
+    }
+  });
+});
+
+function randomNotification() {
+  const notifTitle = "Naša notifikacija";
+  const notifBody = `Bla bla bla`;
+  const notifImg = `/PWAfrontend2022/icon-144x144.png`;
+  const options = {
+    body: notifBody,
+    icon: notifImg,
+  };
+  new Notification(notifTitle, options);
+  setTimeout(randomNotification, 8000);
+}
+
 button.addEventListener("click", checkWeather); //dodaje event listener na dugme
 document.addEventListener("DOMContentLoaded", checkWeather); //kada se DOM učita, pozovi funkciju checkWeather
 
@@ -21,10 +43,11 @@ async function checkWeather(e, city) {
 
   // kad se funkcija pokrene, default prikazani grad je Rijeka
   city = input.value ? input.value : "Rijeka";
-  let data = await fetch(
-    `http://api.weatherapi.com/v1/current.json?key=9e31c87e2cf54a83be093059220207&q=${city}&aqi=yes`
+  let response = await fetch(
+    `https://api.weatherapi.com/v1/forecast.json?key=9e31c87e2cf54a83be093059220207&q=${city}&aqi=yes&days=14`
   );
-  data = await data.json();
+  let data = await response.json();
+  data.cache = response.headers.has("cache");
   writeData(data);
 }
 
@@ -37,6 +60,10 @@ function writeData(data) {
   }
   // u suprotnom se izvršava sve ovo ispod
   else {
+    let cashed = ``;
+    if (data.cache) {
+      cashed = `<h1>Pažnja, niste na internetu, pregledavate stare podatke</h1>`;
+    }
     const nightOrDay = data.current.is_day === 1 ? "day" : "night"; // ako je dan vraća "day" u suprotnom "night" u konstantu nightOrDay
     const cityName = data.location.name; // ime grada
     const currentTemp = data.current.temp_c; // trenutna temperatura
@@ -88,6 +115,7 @@ function writeData(data) {
     // glavni rezultati vremena
     resultDiv.innerHTML = `
 <div id="results-container">
+        ${cashed}
         <h1 class="temp">${currentTemp} &#176</h1>
         <div class="city-time">
         <h1 class="name">${cityName}</h1>
